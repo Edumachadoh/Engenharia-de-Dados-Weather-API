@@ -34,7 +34,7 @@ columns_names_to_rename = {
 }
 
 # colunas para transformar em datetime
-columns_to_normalize_datetime = ['datetime', 'sunrise', 'sunset']
+columns_to_normalize_datetime = ['sunrise', 'sunset']
 
 def create_dataframe(path_name: str) -> pd.DataFrame:
     # receber o caminho do arquivo json e retornar um dataframe pandas
@@ -52,7 +52,7 @@ def create_dataframe(path_name: str) -> pd.DataFrame:
  
 def normalize_weather_columns(df: pd.DataFrame) -> pd.DataFrame:
      
-    df_weather = pd.json_normalize(df['weather'][0].apply(lambda x: x[0]))
+    df_weather = pd.json_normalize(df['weather'].apply(lambda x: x[0]))
      
      # renomear colunas 
     df_weather = df_weather.rename(columns={
@@ -90,7 +90,7 @@ def normalize_datetime_columns(df: pd.DataFrame, columns_names:list[str]) -> pd.
     logging.info(f"\n Colunas convertidas para datetime")
     return df
  
-def data_transformation():
+def data_transformations():
     print("\nIniciando transformacoes")
     df = create_dataframe(path_name)
     df = normalize_weather_columns(df)
